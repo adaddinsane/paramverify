@@ -11,13 +11,17 @@ class ParamVerify implements ParamVerifyInterface
 {
     /**
      * The settings to be applied to a set of parameters.
+     *
+     * @var array
      */
-    protected array $settings = [];
+    protected $settings = [];
 
     /**
      * The required parameters from the settings.
+     *
+     * @var array
      */
-    protected array $required = [];
+    protected $required = [];
 
     /**
      * Constructor ParamVerify
@@ -33,7 +37,7 @@ class ParamVerify implements ParamVerifyInterface
     /**
      * @inheritDoc
      */
-    public function verify(array $values): array
+    public function verify(array $values, ?array $settings = null): array
     {
         $errors = [];
 
@@ -42,9 +46,12 @@ class ParamVerify implements ParamVerifyInterface
             $errors[] = sprintf('Required values [%s] are missing from the parameters.', implode(' ', array_keys($intersect)));
         }
 
+        // Choose which group of settings to use, configured or supplied.
+        $settings = $settings ?? $this->settings;
+
         foreach ($values as $key => $value) {
-            if (!empty($this->settings[$key])) {
-                $this->verifyValue($key, $value, $errors);
+            if (!empty($settings[$key])) {
+                $this->verifyValue($key, $value, $errors, $settings);
             }
         }
 
@@ -54,13 +61,18 @@ class ParamVerify implements ParamVerifyInterface
     /**
      * @inheritDoc
      */
-    public function verifyValue(string $key, $value, array &$errors): void
+    public function verifyValue(string $key, $value, array &$errors, ?array $settings = null): void
     {
-        $settings = $this->settings[$key];
+        // Choose which group of settings to use, configured or supplied.
+        $settings = $settings[$key] ?? $this->settings[$key];
+        $range = $settings['range'] ?? false;
 
         switch ($settings['type']) {
             case '*':
                 $fail = false;
+                break;
+            case 'null':
+                $fail = !is_null($value);
                 break;
             case 'class':
                 $fail = !is_a($value, $settings['data']);
@@ -73,25 +85,62 @@ class ParamVerify implements ParamVerifyInterface
                 break;
             case 'int':
                 $fail = !is_int($value);
+                if (!$fail && $range) {
+                    if (!empty($range['min_value'])) {
+                        $fail = strlen($value) < $range['min_value'];
+                    }
+                    if (!empty($range['max_value'])) {
+                        $fail = strlen($value) > $range['max_value'];
+                    }
+                }
                 break;
             case 'bool':
                 $fail = !is_bool($value);
                 break;
             case 'float':
                 $fail = !is_float($value);
+                if (!$fail && $range) {
+                    if (!empty($range['min_value'])) {
+                        $fail = strlen($value) < $range['min_value'];
+                    }
+                    if (!empty($range['max_value'])) {
+                        $fail = strlen($value) > $range['max_value'];
+                    }
+                }
                 break;
             case 'string':
                 $fail = !is_string($value);
+                if (!$fail && $range) {
+                    if (!empty($range['min_length'])) {
+                        $fail = strlen($value) < $range['min_length'];
+                    }
+                    if (!empty($range['max_length'])) {
+                        $fail = strlen($value) > $range['max_length'];
+                    }
+                }
+                break;
+            case 'enum':
+                $fail = !is_string($value);
+                if (!$fail) {
+                    $items = explode('|', $settings['data']);
+                    $fail = !in_array($value, $items);
+                }
                 break;
             case 'regex':
-                $fail = !is_string($value) || !preg_match($settings['data'], $value);
+                $fail = !(is_string($value) && preg_match($settings['data'], $value));
+                break;
+            case 'callable':
+                $fail = !is_callable($value);
+                break;
+            case 'resource':
+                $fail = !is_resource($value);
                 break;
             default:
                 $fail = TRUE;
                 break;
         }
         if ($fail) {
-            $errors[] = sprintf('Value "%s" is not type "%s", it is type "%s"', $value, $settings['type'], gettype($value));
+            $errors[] = sprintf('Key "%s", value "%s" is not type "%s", it is type "%s"', $key, $value, $settings['type'], gettype($value));
         }
     }
 
