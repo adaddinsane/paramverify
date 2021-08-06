@@ -47,28 +47,24 @@ interface ParamVerifyInterface
      *
      * @param array $values
      *   The values to be checked.
-     * @param array|null $settings
-     *   Allows us to apply arbitrary, not configured settings
      *
      * @return array
      *   The array of errors (empty = none).
      */
-    public function verify(array $values, ?array $settings = null): array;
+    public function verify(array $values): array;
 
     /**
      * Check a value against the supplied settings.
      *
      * If there's an error it is added as a string to the errors array.
      *
-     * @param string $key
-     *   The key of the value to be checked.
      * @param mixed $value
      *   The value to be checked.
+     * @param VerifierInterface $verifier
+     *   The verifier to use.
      * @param array $errors
      *   A list of errors to be added to.
-     * @param array|null $settings
-     *   Allows us to apply arbitrary, not configured settings
      */
-    public function verifyValue(string $key, $value, array &$errors, ?array $settings = null): void;
+    public function verifyValue($value, VerifierInterface $verifier, array &$errors): void;
 
 }

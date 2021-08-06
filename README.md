@@ -42,7 +42,7 @@ generated if it's missing, but it will be tested if it is present.
 Types
 -----
 The complete list of types:
- - '*' matches anything
+ - **any** matches anything
  - **null** matches only a null value (for completeness, you never know)
  - **class** matches a specific class or interface (FQN in 'data')
  - **object** matches any object
@@ -51,11 +51,12 @@ The complete list of types:
  - **bool** only matches true or false
  - **float** matches a float value (and can have a range)
  - **string** matches any string (and can have a range)
- - **enum** matches a string against a fixed list of strings (in 'data'
-   separated by '|')
+ - **string_list** matches a string against a fixed list of strings (in 'data'
+   separated by '|'). This is an old style "enum".
  - **regex** tests a string with a regular expression (in 'data')
  - **callable** only matches a callable
  - **resource** only matches a resource
+ - _**enum** only matches a PHP8.1 enum  (FQN in 'data')_
 
 How to use it
 -------------
@@ -64,21 +65,36 @@ $settings = [
   'name' => [
     'required' => true,
     'type' => 'string'
+  ],
+  'value' => [
+    'required' => true,
+    'type' => 'int'
+    'range' => [
+      'min_value' => 1,
+      'max_value' => 10
+    ]
   ]
 ];
 
 $verifier = new ParamVerify($settings);
 
 // Will return an error because 'name' is missing.
-$parameters = [];
+$parameters = ['value' => 5];
 $errors = $verifier->verify($parameters);
 
 // Will return no errors.
-$parameters = ['name' => 'banana'];
+$parameters = ['name' => 'banana', 'value' => 5];
+$errors = $verifier->verify($parameters);
+
+// Will return an error because value is out of range.
+$parameters = ['name' => 'banana', 'value' => 15];
+$errors = $verifier->verify($parameters);
+
+// Will return an error because name is not a string.
+$parameters = ['name' => ['banana'], 'value' => 15];
 $errors = $verifier->verify($parameters);
 ```
 
 Future
 ------
  - Allow verification of sub-arrays (with repeated entries);
- - Convert types to classes and sub-classes and lose the big switch.
