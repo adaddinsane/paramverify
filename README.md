@@ -76,7 +76,10 @@ $settings = [
   ]
 ];
 
-$verifier = new ParamVerify($settings);
+$paramVerifyFactory = new \ParamVerify\ParamVerifyFactory();
+
+// This checks the settings and will throw an exception on error.
+$verifier = $paramVerifyFactory->make($settings);
 
 // Will return an error because 'name' is missing.
 $parameters = ['value' => 5];

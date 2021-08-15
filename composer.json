@@ -1,20 +1,20 @@
 {
-    "name": "adaddinsane/paramverify",
-    "description": "Parameter verification tool",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Steve Turnbull",
-            "email": "adaddinsane@gmail.com"
-        }
-    ],
-    "autoload": {
-      "psr-4": {
-        "Paramverify\\": "src/"
-      }
-    },
-    "require": {
-      "php": ">=7.3",
-      "ext-mbstring": "*"
+  "name": "adaddinsane/paramverify",
+  "description": "Parameter verification tool",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Steve Turnbull",
+      "email": "adaddinsane@gmail.com"
     }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Paramverify\\": "src/"
+    }
+  },
+  "require": {
+    "php": ">=7.3",
+    "ext-mbstring": "*"
+  }
 }
