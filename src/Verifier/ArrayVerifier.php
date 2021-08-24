@@ -2,6 +2,8 @@
 
 namespace Adaddinsane\ParamVerify\Verifier;
 
+use Adaddinsane\ParamVerify\VerifierBase;
+
 class ArrayVerifier extends VerifierBase
 {
     /**
