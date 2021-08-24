@@ -2,7 +2,7 @@
 
 namespace Adaddinsane\ParamVerify\Verifier;
 
-use ParamVerify\ParamVerifyException;
+use Adaddinsane\ParamVerify\ParamVerifyException;
 use Adaddinsane\ParamVerify\VerifierBase;
 
 class FloatVerifier extends VerifierBase

@@ -2,7 +2,7 @@
 
 namespace Adaddinsane\ParamVerify\Verifier;
 
-use ParamVerify\ParamVerifyException;
+use Adaddinsane\ParamVerify\ParamVerifyException;
 
 class ClassVerifier extends VerifierBase
 {

@@ -2,7 +2,7 @@
 
 namespace Adaddinsane\ParamVerify;
 
-use ParamVerify\ParamVerifyException;
+use Adaddinsane\ParamVerify\ParamVerifyException;
 
 abstract class VerifierBase implements VerifierInterface
 {
