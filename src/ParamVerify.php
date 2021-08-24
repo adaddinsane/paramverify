@@ -49,7 +49,7 @@ class ParamVerify implements ParamVerifyInterface
         foreach ($settings as $name => $setting) {
             $setting += static::DEFAULT_PARAM_CONFIG;
             $classBase = $this->makeClassName($setting['type']) . 'Verifier';
-            $class = "\Adaddinsane\ParamVerify\Verifier\{$classBase}";
+            $class = "\Adaddinsane\ParamVerify\Verifier\\{$classBase}";
             $verifiers[$name] = new $class($name, $setting);
         }
         return $verifiers;
