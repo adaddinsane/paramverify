@@ -2,8 +2,6 @@
 
 namespace Adaddinsane\ParamVerify;
 
-use Adaddinsane\ParamVerify\ParamVerifyException;
-
 abstract class VerifierBase implements VerifierInterface
 {
     /**
@@ -37,13 +35,12 @@ abstract class VerifierBase implements VerifierInterface
      * @param string $name
      * @param array $options
      *
-     * @throws \ParamVerify\ParamVerifyException
+     * @throws ParamVerifyException
      */
-    public function __construct(string $name, string $type, array $options)
+    public function __construct(string $name, array $options)
     {
         $this->name = $name;
-        $this->type = $type;
-
+        $this->type = $options['type'];
         $this->required = $options['required'] ?? false;
         $this->data = $this->dataCheck($options['data']);
         $this->range = $this->rangeCheck($options['range']);
