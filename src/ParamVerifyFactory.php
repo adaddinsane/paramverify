@@ -1,6 +1,6 @@
 <?php
 
-namespace ParamVerify;
+namespace Adaddinsane\ParamVerify;
 
 class ParamVerifyFactory implements ParamVerifyFactoryInterface
 {

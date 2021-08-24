@@ -1,20 +1,26 @@
 {
-  "name": "adaddinsane/paramverify",
-  "description": "Parameter verification tool",
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Steve Turnbull",
-      "email": "adaddinsane@gmail.com"
+    "name": "adaddinsane/paramverify",
+    "type": "library",
+    "description": "Parameter verification tool",
+    "version": "1.2.0-alpha2",
+    "license": "MIT",
+    "keywords": ["array", "parameter", "argument", "values", "validation","verification"],
+    "authors": [
+        {
+            "name": "Steve Turnbull",
+            "email": "adaddinsane@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Adaddinsane\\ParamVerify\\": "src"
+        }
+    },
+    "require": {
+        "php": ">=7.3",
+        "ext-mbstring": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.0"
     }
-  ],
-  "autoload": {
-    "psr-4": {
-      "Paramverify\\": "src/"
-    }
-  },
-  "require": {
-    "php": ">=7.3",
-    "ext-mbstring": "*"
-  }
 }

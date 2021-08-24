@@ -1,8 +1,8 @@
 <?php
 
-namespace ParamVerify\Verifier;
+namespace Adaddinsane\ParamVerify\Verifier;
 
-use ParamVerify\VerifierBase;
+use Adaddinsane\ParamVerify\VerifierBase;
 
 class NullVerifier extends VerifierBase
 {

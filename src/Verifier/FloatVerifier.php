@@ -1,9 +1,9 @@
 <?php
 
-namespace ParamVerify\Verifier;
+namespace Adaddinsane\ParamVerify\Verifier;
 
 use ParamVerify\ParamVerifyException;
-use ParamVerify\VerifierBase;
+use Adaddinsane\ParamVerify\VerifierBase;
 
 class FloatVerifier extends VerifierBase
 {

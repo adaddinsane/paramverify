@@ -1,6 +1,6 @@
 <?php
 
-namespace ParamVerify\Verifier;
+namespace Adaddinsane\ParamVerify\Verifier;
 
 class CallableVerifier extends VerifierBase
 {
