@@ -31,7 +31,7 @@ class ParamVerify implements ParamVerifyInterface
     public function __construct(array $settings)
     {
         $this->verifiers = $this->generateSettings($settings);
-        $this->required = $this->getRequired($settings);
+        $this->required = $this->getRequired($this->verifiers);
     }
 
     /**

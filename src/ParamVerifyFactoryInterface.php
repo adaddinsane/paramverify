@@ -8,12 +8,12 @@ interface ParamVerifyFactoryInterface
     const VERIFY = [
         'required' => [
             'required' => false,
-            'type' => 'bool'
+            'type' => 'int_bool'
         ],
         'type' => [
             'required' => true,
             'type' => 'string_list',
-            'data' => 'any|null|class|object|array|int|bool|float|string|string_list|regex|callable|resource|enum'
+            'data' => 'any|null|class|object|array|int|bool|int_bool|float|string|string_list|regex|callable|resource|enum'
         ],
         'data' => [
             'required' => false,
@@ -26,14 +26,14 @@ interface ParamVerifyFactoryInterface
     ];
 
     /**
-     * Create a ParamVerify object using the given settings.
+     * Create a ParamVerify object using the given configuration.
      *
-     * @param array $settings
+     * @param array $configuration
      *
      * @return ParamVerifyInterface
      *
      * @throws ParamVerifyException
      */
-    public function make(array $settings): ParamVerifyInterface;
+    public function make(array $configuration): ParamVerifyInterface;
 
 }
