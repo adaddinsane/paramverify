@@ -33,7 +33,7 @@ class StringVerifier extends VerifierBase
     /**
      * @inheritDoc
      */
-    public function verify($value): bool
+    public function verify($value, array &$errors = []): bool
     {
         $success = is_string($value);
 

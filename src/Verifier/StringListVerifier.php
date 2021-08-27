@@ -15,7 +15,7 @@ class StringListVerifier extends VerifierBase
     /**
      * @inheritDoc
      */
-    protected function dataCheck(?string $data): string
+    protected function dataCheck(string $data): string
     {
         if (empty($data)) {
             throw new ParamVerifyException(sprintf('List verifier "%s" has no list defined.', $this->name));
@@ -29,7 +29,7 @@ class StringListVerifier extends VerifierBase
     /**
      * @inheritDoc
      */
-    public function verify($value): bool
+    public function verify($value, array &$errors = []): bool
     {
         return is_string($value) && in_array($value, $this->items);
     }

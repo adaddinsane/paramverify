@@ -12,13 +12,14 @@ class ParamVerifyFactory implements ParamVerifyFactoryInterface
     {
         // We make sure the supplied $configuration is the correct structure.
         $checker = new ParamVerify(static::VERIFY);
-        
+
+        $errors = [];
         foreach ($configuration as $settings) {
-          $errors = $checker->verify($settings);
-          if (!empty($errors)) {
-            throw new ParamVerifyException('Bad settings for ParamVerify provided.', 0, NULL, $errors);
-          }
+          $checker->verify($settings, $errors);
         }
+      if (!empty($errors)) {
+        throw new ParamVerifyException('Bad settings for ParamVerify provided.', 0, NULL, $errors);
+      }
 
         return new ParamVerify($configuration);
     }

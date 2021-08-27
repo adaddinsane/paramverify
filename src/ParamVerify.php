@@ -87,10 +87,8 @@ class ParamVerify implements ParamVerifyInterface
     /**
      * @inheritDoc
      */
-    public function verify(array $values): array
+    public function verify(array $values, array &$errors = []): void
     {
-        $errors = [];
-
         $intersect = array_intersect_key($this->required, $values);
         if (count($this->required) !== count($intersect)) {
             // Which required values were not supplied?
@@ -104,8 +102,6 @@ class ParamVerify implements ParamVerifyInterface
                 $this->verifyValue($value, $this->verifiers[$key], $errors);
             }
         }
-
-        return $errors;
     }
 
     /**
@@ -113,8 +109,14 @@ class ParamVerify implements ParamVerifyInterface
      */
     public function verifyValue($value, VerifierInterface $verifier, array &$errors): void
     {
-        if (!$verifier->verify($value)) {
-            $errors[] = sprintf('Key "%s", value "%s" is not type "%s", it is type "%s"', $verifier->getName(), $value, $verifier->getType(), gettype($value));
+        if (!$verifier->verify($value, $errors)) {
+            // The verify function did not provide its own errors.
+            $errors[] = sprintf('Key "%s", value "%s" is not type "%s", it is type "%s"',
+              $verifier->getName(),
+              is_scalar($value) ? $value : gettype($value),
+              $verifier->getType(),
+              gettype($value)
+            );
         }
     }
 

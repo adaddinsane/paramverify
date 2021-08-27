@@ -9,7 +9,7 @@ class ObjectVerifier extends VerifierBase
     /**
      * @inheritDoc
      */
-    public function verify($value): bool
+    public function verify($value, array &$errors = []): bool
     {
         return is_object($value);
     }

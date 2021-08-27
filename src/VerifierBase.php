@@ -19,10 +19,15 @@ abstract class VerifierBase implements VerifierInterface
      */
     protected $required;
 
-    /**
-     * @var string
-     */
-    protected $data;
+  /**
+   * @var string
+   */
+  protected $data;
+
+  /**
+   * @var array
+   */
+  protected $settings = [];
 
     /**
      * @var array
@@ -42,7 +47,8 @@ abstract class VerifierBase implements VerifierInterface
         $this->name = $name;
         $this->type = $options['type'];
         $this->required = $options['required'] ?? false;
-        $this->data = $this->dataCheck($options['data']);
+      $this->data = $this->dataCheck($options['data'] ?? '');
+      $this->settings = $this->settingsCheck($options['settings'] ?? []);
         $this->range = $this->rangeCheck($options['range']);
     }
 
@@ -73,16 +79,30 @@ abstract class VerifierBase implements VerifierInterface
     /**
      * Overridable function to check a proper data value for the verifier.
      *
-     * @param string|null $data
+     * @param string $data
      *
      * @return string
      *
      * @throws ParamVerifyException
      */
-    protected function dataCheck(?string $data): string
+    protected function dataCheck(string $data):string
     {
         return $data ?? '';
     }
+
+  /**
+   * Overridable function to check a proper settings value for the verifier.
+   *
+   * @param array $settings
+   *
+   * @return array
+   *
+   * @throws ParamVerifyException
+   */
+  protected function settingsCheck(array $settings): array
+  {
+    return $settings ?? [];
+  }
 
     /**
      * Overridable function to check a proper range value for the verifier.

@@ -40,18 +40,18 @@ interface ParamVerifyInterface
     ];
 
     /**
-     * Process the supplied values are return an array of results.
+     * Process the supplied values.
      *
-     * Any invalid or missing values are flagged in this array, so
-     * if it's empty then everything is fine.
+     * Any invalid or missing values are flagged in the error array,
+     * so if it's empty then everything is fine.
      *
      * @param array $values
      *   The values to be checked.
      *
-     * @return array
-     *   The array of errors (empty = none).
+     * @param array $errors
+     *   The array of errors found.
      */
-    public function verify(array $values): array;
+    public function verify(array $values, array &$errors = []): void;
 
     /**
      * Check a value against the supplied settings.

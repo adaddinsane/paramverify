@@ -11,7 +11,7 @@ class RegexVerifier extends VerifierBase
     /**
      * @inheritDoc
      */
-    protected function dataCheck(?string $data): string
+    protected function dataCheck(string $data): string
     {
         if (empty($data)) {
             throw new ParamVerifyException(sprintf('Regex verifier "%s" has no regex defined.', $this->name));
@@ -27,7 +27,7 @@ class RegexVerifier extends VerifierBase
     /**
      * @inheritDoc
      */
-    public function verify($value): bool
+    public function verify($value, array &$errors = []): bool
     {
         return is_string($value) && preg_match($this->data, $value);
     }

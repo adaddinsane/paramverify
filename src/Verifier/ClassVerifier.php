@@ -9,7 +9,7 @@ class ClassVerifier extends VerifierBase
     /**
      * @inheritDoc
      */
-    protected function dataCheck(?string $data): string
+    protected function dataCheck(string $data): string
     {
         if (empty($data)) {
             throw new ParamVerifyException(sprintf('Class verifier "%s" has no class defined.', $this->name));
@@ -25,7 +25,7 @@ class ClassVerifier extends VerifierBase
     /**
      * @inheritDoc
      */
-    public function verify($value): bool
+    public function verify($value, array &$errors = []): bool
     {
         return is_a($value, $this->data);
     }
