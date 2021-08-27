@@ -52,10 +52,13 @@ The complete list of types:
  - **float** matches a float value (and can have a range)
  - **string** matches any string (and can have a range)
  - **string_list** matches a string against a fixed list of strings (in 'data'
-   separated by '|'). This is an old style "enum".
+   separated by '|'). This is an old style "enum" which is also used to verify
+   the types of the settings/configuration items.
  - **regex** tests a string with a regular expression (in 'data')
  - **callable** only matches a callable
  - **resource** only matches a resource
+ - **url** matches a string which is also a valid URL
+ - **email** matches a string which is also a valid email address
  - _**enum** only matches a PHP8.1 enum  (FQN in 'data')_
 
 How to use it

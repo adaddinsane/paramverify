@@ -13,7 +13,7 @@ interface ParamVerifyFactoryInterface
         'type' => [
             'required' => true,
             'type' => 'string_list',
-            'data' => 'any|null|class|object|array|int|bool|int_bool|float|string|string_list|regex|callable|resource|enum'
+            'data' => 'any|null|class|object|array|int|bool|int_bool|float|string|string_list|regex|callable|resource|url|email|enum'
         ],
         'data' => [
             'required' => false,
