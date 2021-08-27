@@ -93,7 +93,10 @@ class ParamVerify implements ParamVerifyInterface
 
         $intersect = array_intersect_key($this->required, $values);
         if (count($this->required) !== count($intersect)) {
-            $errors[] = sprintf('Required values [%s] are missing from the parameters.', implode(' ', array_keys($intersect)));
+            // Which required values were not supplied?
+            $nonIntersect = array_diff_key($this->required, $intersect);
+            $errors[] = sprintf('Required value(s) [%s] are missing from the supplied parameters.',
+                implode(', ', array_keys($nonIntersect)));
         }
 
         foreach ($values as $key => $value) {
