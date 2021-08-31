@@ -2,7 +2,7 @@
     "name": "adaddinsane/paramverify",
     "type": "library",
     "description": "Parameter verification tool",
-    "version": "1.4.0-alpha",
+    "version": "1.4.0-beta",
     "license": "MIT",
     "keywords": ["array", "parameter", "argument", "values", "validation","verification"],
     "authors": [

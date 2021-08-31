@@ -13,14 +13,17 @@ class UrlVerifier extends VerifierBase
      */
     public function verify($value, array &$errors = []): bool
     {
-        $success = is_string($value);
-
-        if ($success) {
-            $parser = new UriParser();
-            $parsed = $parser->parse($value);
-            $success = $parsed !== null;
+        if (!is_string($value)) {
+          return false;
         }
 
-        return $success;
+        $parser = new UriParser();
+        $parsed = $parser->parse($value);
+        if ($parser->parse($value) === null) {
+          $errors[] = sprintf('Url value (%s) for %s is not valid', $value, $this->name);
+        }
+
+        // Even if the validation fails, we don't want a type message here.
+        return true;
     }
 }

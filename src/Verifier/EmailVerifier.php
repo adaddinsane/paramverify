@@ -14,13 +14,16 @@ class EmailVerifier extends VerifierBase
      */
     public function verify($value, array &$errors = []): bool
     {
-        $success = is_string($value);
-
-        if ($success) {
-            $validator = new EmailValidator();
-            $success = $validator->isValid($value, new RFCValidation());
+        if (!is_string($value)) {
+          return false;
         }
 
-        return $success;
+        $validator = new EmailValidator();
+        if (!$validator->isValid($value, new RFCValidation())) {
+          $errors[] = sprintf('Email value (%s) for %s is not valid', $value, $this->name);
+        }
+
+        // Even if the validation fails, we don't want a type message here.
+        return true;
     }
 }
