@@ -46,7 +46,8 @@ The complete list of types:
  - **null** matches only a null value (for completeness, you never know)
  - **class** matches a specific class or interface (FQN in 'data')
  - **object** matches any object
- - **array** matches any array
+ - **array** matches any array, arrays can contain their own definitions (see
+   later).
  - **int** matches an integer value (and can have a range)
  - **bool** only matches true or false
  - **float** matches a float value (and can have a range)
@@ -101,6 +102,42 @@ $parameters = ['name' => ['banana'], 'value' => 15];
 $errors = $verifier->verify($parameters);
 ```
 
-Future
-------
- - Allow verification of sub-arrays (with repeated entries);
+Array sub-properties
+--------------------
+Arrays can have an additional property called `settings` which defines a set of
+sub-properties for the array. There is no limit on the nesting - apart from
+resources and whether it's really a good idea.
+```php
+$settings = [
+  'name' => [
+    'required' => true,
+    'type' => 'string'
+  ],
+  'address' => [
+    'required' => true,
+    'type' => 'array'
+    'settings' => [
+      'line1' => ['required' => true, 'type' => 'string'],
+      'line2' => ['type' => 'string'],
+      'line3' => ['type' => 'string'],
+      'postal_code' => ['required' => true, 'type' => 'string'],
+    ]
+  ]
+];
+
+$paramVerifyFactory = new \ParamVerify\ParamVerifyFactory();
+
+// This checks the settings and will throw an exception on error.
+$verifier = $paramVerifyFactory->make($settings);
+
+// This would not generate any errors.
+$parameters = [
+  'name' => 'jane',
+  'address' => [
+    'line1' => 'first line of address',
+    'line3' => 'third line of address',
+    'postal_code' => 'XX1 73YY'
+  ]
+];
+$errors = $verifier->verify($parameters);
+```
