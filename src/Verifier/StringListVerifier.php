@@ -31,6 +31,16 @@ class StringListVerifier extends VerifierBase
      */
     public function verify($value, array &$errors = []): bool
     {
-        return is_string($value) && in_array($value, $this->items);
+        if (!is_string($value)) {
+            return false;
+        }
+
+        if (!in_array($value, $this->items)) {
+            $allowed = implode(' | ', $this->items);
+            $errors[] = sprintf('Value (%s) for %s is not one of the allowed values (%s)', $value, $this->name, $allowed);
+        }
+
+        // Even if the validation fails, we don't want a "bad type" message here.
+        return true;
     }
 }

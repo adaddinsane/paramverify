@@ -50,6 +50,7 @@ The complete list of types:
    later).
  - **int** matches an integer value (and can have a range)
  - **bool** only matches true or false
+ - **int_bool** matches true, false, 1 and 0
  - **float** matches a float value (and can have a range)
  - **string** matches any string (and can have a range)
  - **string_list** matches a string against a fixed list of strings (in 'data'

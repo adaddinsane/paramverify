@@ -29,6 +29,15 @@ class RegexVerifier extends VerifierBase
      */
     public function verify($value, array &$errors = []): bool
     {
-        return is_string($value) && preg_match($this->data, $value);
+        if (!is_string($value)) {
+            return false;
+        }
+
+        if (!preg_match($this->data, $value)) {
+            $errors[] = sprintf('Value (%s) for %s does not match the supplied regex', $value, $this->name);
+        }
+
+        // Even if the validation fails, we don't want a "bad type" message here.
+        return true;
     }
 }
