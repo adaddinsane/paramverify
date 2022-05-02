@@ -2,7 +2,7 @@
     "name": "adaddinsane/paramverify",
     "type": "library",
     "description": "Parameter verification tool",
-    "version": "1.4.0-beta2",
+    "version": "1.4.1",
     "license": "MIT",
     "keywords": ["array", "parameter", "argument", "values", "validation","verification"],
     "authors": [
@@ -19,7 +19,7 @@
     "require": {
         "php": ">=7.2",
         "ext-mbstring": "*",
-        "egulias/email-validator": "^2.0",
+        "egulias/email-validator": "^3.1",
         "riimu/kit-urlparser": "^2.1"
     },
     "require-dev": {
